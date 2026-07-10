@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Awesome Themes - Transform Windows to macOS</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .badge-title {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 60px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .main-title {
+            font-size: 3.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .verified-badge {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #1da1f2, #4facfe);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 10px 30px rgba(29, 161, 242, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .showcase-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .showcase-header {
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 300% 300%;
+            animation: gradientShift 8s ease infinite;
+            padding: 40px;
+            border-radius: 25px 25px 0 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+            box-shadow: 0 -5px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .desktop-showcase {
+            background: linear-gradient(45deg, 
+                #ff9a9e 0%, 
+                #fecfef 25%, 
+                #fecfef 50%, 
+                #a8edea 75%, 
+                #fed6e3 100%);
+            background-size: 400% 400%;
+            animation: floatingGradient 12s ease infinite;
+            padding: 80px 40px;
+            border-radius: 0 0 25px 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes floatingGradient {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+        }
+
+        .desktop-mockups {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .desktop {
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.5s ease;
+        }
+
+        .desktop:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .primary-desktop {
+            width: 500px;
+            height: 320px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .secondary-desktop {
+            width: 350px;
+            height: 230px;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .window-header {
+            height: 40px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 10px;
+        }
+
+        .window-button {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+        }
+
+        .red { background: #ff5f57; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #28ca42; }
+
+        .desktop-content {
+            height: calc(100% - 40px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .time-widget {
+            font-size: 4rem;
+            font-weight: 200;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            letter-spacing: -0.02em;
+        }
+
+        .time-small {
+            font-size: 2.8rem;
+        }
+
+        .pm-indicator {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            margin-left: 10px;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .circle1 {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .circle2 {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .circle3 {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .cta-section {
+            margin: 80px 0;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .download-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+            color: white;
+            padding: 25px 60px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+            text-transform: uppercase;
+        }
+
+        .download-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(255, 107, 107, 0.6);
+        }
+
+        .download-icon {
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .fallback-link {
+            margin-top: 30px;
+            font-size: 1.1rem;
+            color: #888;
+        }
+
+        .fallback-link a {
+            color: #667eea;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .fallback-link a:hover {
+            color: white;
+            border-bottom-color: white;
+        }
+
+        .features-section {
+            margin-top: 100px;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .features-title {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            font-size: 1.4rem;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .highlight-number {
+            color: #ff6b6b;
+            font-weight: 700;
+            font-size: 1.5em;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+
+            .badge-title {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .showcase-header {
+                font-size: 1.8rem;
+                padding: 30px 20px;
+            }
+
+            .desktop-mockups {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .primary-desktop {
+                width: 350px;
+                height: 230px;
+            }
+
+            .secondary-desktop {
+                width: 300px;
+                height: 200px;
+            }
+
+            .time-widget {
+                font-size: 2.5rem;
+            }
+
+            .time-small {
+                font-size: 2rem;
+            }
+
+            .download-button {
+                padding: 20px 40px;
+                font-size: 1.3rem;
+            }
+
+            .features-title {
+                font-size: 2.2rem;
+            }
+
+            .feature-item {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 20px 15px;
+            }
+
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .primary-desktop {
+                width: 300px;
+                height: 200px;
+            }
+
+            .secondary-desktop {
+                width: 260px;
+                height: 170px;
+            }
+
+            .time-widget {
+                font-size: 2rem;
+            }
+
+            .time-small {
+                font-size: 1.5rem;
+            }
+        }
+    
+
+.macos-preview-image {
+    width: 80%;
+    max-width: 800px;
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s ease;
+}
+
+.macos-preview-image:hover {
+    transform: scale(1.03);
+}
+
+.download-button {
+    padding: 16px 32px !important;
+    font-size: 1.1rem !important;
+}
+
+.download-icon {
+    font-size: 1.5rem !important;
+}
+
+.main-title {
+    font-size: 2.2rem !important;
+}
+
+
+.macos-preview-image {
+    width: 90% !important;
+    max-width: 1000px !important;
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s ease;
+}
+
+.macos-preview-image:hover {
+    transform: scale(1.03);
+}
+</style>
+</head>
+<body>
+<div class="hero">
+<div class="badge-title">
+<h1 class="main-title">Awesome Themes - for Windows 10 &amp; 11</h1>
+<div class="verified-badge">✓</div>
+</div>
+<div class="showcase-container">
+<div class="floating-elements">
+<div class="floating-circle circle1"></div>
+<div class="floating-circle circle2"></div>
+<div class="floating-circle circle3"></div>
+</div>
+<div class="desktop-mockups"><a href="https://ibb.co/N2dbDMDZ"><img alt="image" border="0" class="macos-preview-image" src="https://i.ibb.co/5hgwpPpB/image.png"/></a></div>
+</div>
+<div class="cta-section">
+<a class="download-button" href="https://lequipe.fr" target="_blank">
+<span class="download-icon">⬇</span>
+                FREE DOWNLOAD &amp; INSTALL
+            </a>
+<div class="fallback-link">
+<a href="https://sites.google.com/view/awesome-themes-pc" target="_blank">Click here</a> if download does not start!
+            </div>
+</div>
+<div class="features-section">
+<h2 class="features-title">Windows 10 &amp; 11 Look Like MacOS</h2>
+<div class="features-list">
+<div class="feature-item">
+                    Choose your style from <span class="highlight-number">200+</span> Themes, Widgets, <span class="highlight-number">10.000+</span> Wallpapers,...
+                </div>
+<div class="feature-item">
+                    Use less RAM &amp; CPU - with smooth performance!
+                </div>
+</div>
+</div>
+</div>
+<script>
+        // Smooth scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Observe animated elements
+            const animatedElements = document.querySelectorAll('[style*="animation"]');
+            animatedElements.forEach(el => {
+                if (el.style.animationDelay) {
+                    el.style.animationPlayState = 'paused';
+                    observer.observe(el);
+                }
+            });
+
+            // Enhanced download button interactions
+            const downloadBtn = document.querySelector('.download-button');
+            
+            downloadBtn.addEventListener('mouseenter', () => {
+                downloadBtn.style.transform = 'translateY(-8px) scale(1.05)';
+            });
+            
+            downloadBtn.addEventListener('mouseleave', () => {
+                downloadBtn.style.transform = 'translateY(0) scale(1)';
+            });
+
+            // Parallax effect for floating elements
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                
+                document.querySelectorAll('.floating-circle').forEach((circle, index) => {
+                    const speed = 0.5 + (index * 0.2);
+                    circle.style.transform = `translateY(${rate * speed}px) rotate(${scrolled * 0.1}deg)`;
+                });
+            });
+
+            // Dynamic gradient colors
+            let hue = 0;
+            setInterval(() => {
+                hue = (hue + 1) % 360;
+                document.documentElement.style.setProperty('--dynamic-hue', hue);
+            }, 100);
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
